@@ -1,0 +1,165 @@
+
+SQL Codes Organized by Category
+
+--------------------------------------------------
+TCL – Transaction Control Language
+--------------------------------------------------
+-- Create Table
+CREATE TABLE Student(
+ ID INT,
+ Name VARCHAR(20)
+);
+
+-- Insert first record
+INSERT INTO Student VALUES(1,'Ajith');
+
+-- Start transaction
+BEGIN TRANSACTION;
+
+-- Create Savepoint
+SAVE TRANSACTION A;
+
+-- Insert second record
+INSERT INTO Student VALUES(2,'Deva');
+
+-- Rollback to savepoint
+ROLLBACK TRANSACTION A;
+
+-- Save the transaction
+COMMIT;
+
+-- Display table
+SELECT * FROM Student;
+
+
+--------------------------------------------------
+DDL – Data Definition Language
+--------------------------------------------------
+CREATE TABLE Student(
+    ID INT,
+    Name VARCHAR(20),
+    Mark INT
+);
+
+EXEC sp_help 'Student';
+
+ALTER TABLE Student ADD Dept VARCHAR(20);
+
+EXEC sp_rename 'Student.Name', 'SName', 'COLUMN';
+
+DROP TABLE IF EXISTS Student;
+
+
+--------------------------------------------------
+DML – Data Manipulation Language
+--------------------------------------------------
+CREATE TABLE Student(
+ID INT,
+Name VARCHAR(20),
+Mark INT
+);
+
+INSERT INTO Student VALUES(1,'Ajith',90);
+INSERT INTO Student VALUES(2,'Deva',85);
+INSERT INTO Student VALUES(3,'Ram',80);
+
+UPDATE Student SET Mark=95 WHERE ID=1;
+
+DELETE FROM Student WHERE ID=3;
+
+SELECT * FROM Student;
+
+
+--------------------------------------------------
+SQL JOINS
+--------------------------------------------------
+CREATE TABLE Student(
+    ID INT,
+    Name VARCHAR(20)
+);
+
+CREATE TABLE Marks(
+    ID INT,
+    Mark INT
+);
+
+INSERT INTO Student (ID, Name) VALUES (1,'Ajith');
+INSERT INTO Student (ID, Name) VALUES (2,'Deva');
+
+INSERT INTO Marks (ID, Mark) VALUES (1,90);
+INSERT INTO Marks (ID, Mark) VALUES (2,85);
+
+SELECT s.ID, s.Name, m.Mark
+FROM Student s
+INNER JOIN Marks m
+ON s.ID = m.ID;
+
+
+--------------------------------------------------
+Sub Queries
+--------------------------------------------------
+CREATE TABLE Employee(
+    ID INT,
+    Name VARCHAR(20),
+    Salary INT
+);
+
+INSERT INTO Employee (ID, Name, Salary) VALUES (1,'Ram',5000);
+INSERT INTO Employee (ID, Name, Salary) VALUES (2,'Sam',7000);
+INSERT INTO Employee (ID, Name, Salary) VALUES (3,'Raj',6000);
+
+SELECT Name, Salary
+FROM Employee
+WHERE Salary > (SELECT AVG(Salary) FROM Employee);
+
+
+--------------------------------------------------
+SQL Functions
+--------------------------------------------------
+SELECT UPPER('cyber security');
+SELECT LOWER('PYTHON');
+SELECT LEN('Database');
+
+SELECT ROUND(45.678,2);
+SELECT 10 % 3;
+
+
+--------------------------------------------------
+Aggregate Functions
+--------------------------------------------------
+CREATE TABLE Marks(
+ID INT,
+Mark INT
+);
+
+INSERT INTO Marks VALUES(1,90);
+INSERT INTO Marks VALUES(2,80);
+INSERT INTO Marks VALUES(3,85);
+INSERT INTO Marks VALUES(4,75);
+
+SELECT SUM(Mark) FROM Marks;
+SELECT AVG(Mark) FROM Marks;
+SELECT MAX(Mark) FROM Marks;
+SELECT MIN(Mark) FROM Marks;
+SELECT COUNT(*) FROM Marks;
+
+
+--------------------------------------------------
+SQL Operators
+--------------------------------------------------
+CREATE TABLE Student(
+    ID INT,
+    Name VARCHAR(20),
+    Mark INT
+);
+
+INSERT INTO Student VALUES(1,'Ajith',90);
+INSERT INTO Student VALUES(2,'Deva',80);
+INSERT INTO Student VALUES(3,'Ram',70);
+INSERT INTO Student VALUES(4,'Sam',85);
+
+SELECT * FROM Student WHERE Mark > 80;
+SELECT * FROM Student WHERE Mark BETWEEN 70 AND 90;
+SELECT * FROM Student WHERE Name LIKE 'A%';
+SELECT * FROM Student WHERE Mark IN (70,80);
+SELECT * FROM Student WHERE Mark <> 90;
